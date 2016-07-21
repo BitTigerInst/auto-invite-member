@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 
 
-def invite_member(path, username, token):
+def invite_member(path, org, username, token):
     # import data
     df = pd.read_csv(path, names=["name", "github"]).dropna(axis=0, how='all')
     df['state'] = "NaN"
@@ -14,13 +14,15 @@ def invite_member(path, username, token):
         gh = gh.replace('github.com/', '')
         if gh != "nan":
             try:
-                print(gh, _invite_member(gh, username, token))
+                res = _invite_member(gh, org, username, token)
+                if res != "active":
+                    print(gh, res)
             except Exception:
                 pass
 
 
-def _invite_member(usr, username, token):
-    url = "https://api.github.com/orgs/BitTigerInst/memberships/{0}".format(usr)
+def _invite_member(usr, org, username, token):
+    url = "https://api.github.com/orgs/{0}/memberships/{1}".format(org, usr)
     data = '{"role":"member"}'
     auth = (username, token)
 
