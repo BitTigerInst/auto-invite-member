@@ -1,4 +1,4 @@
-This is a tool to add or update membership of an organization. It depends on python library ```requests``` and followed newest [github api](https://developer.github.com/v3/)
+This is a tool to add or update membership of an organization. It depends on python library ```requests``` and followed newest [GitHub API v3](https://developer.github.com/v3/)
 
 # Preparation
 
@@ -21,8 +21,9 @@ pip install -r requirements.txt
 # Run 
 We can now run this function:
 
+This fuction use [basic authentication](https://developer.github.com/v3/auth/#basic-authentication). We need replace username and token in following code.
+
 ``` Python
-# this fuction use [basic authentication](https://developer.github.com/v3/auth/#basic-authentication) 
 username = YOUR_GITHUB_USERNAME
 token = YOUR_OWN_TOKEN
 
@@ -34,3 +35,8 @@ org = YOUR_ORGANIZATION NAME
 # run the function
 invite_member(path, org, username, token)
 ```
+
+# License
+MIT LICENSE
+
+my website: nychent.github.io
