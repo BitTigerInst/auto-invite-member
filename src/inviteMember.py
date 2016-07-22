@@ -6,7 +6,8 @@ def invite_member(path, org, username, token):
     # import data
     df = pd.read_csv(path, names=["name", "github"]).dropna(axis=0, how='all')
     df['state'] = "NaN"
-
+    index = 0
+    index_bad = 0
     for i in range(len(df.index)):
         gh = str(df.iloc[i]['github'])
         gh = gh.strip()  # trim spaces
@@ -17,8 +18,12 @@ def invite_member(path, org, username, token):
                 res = _invite_member(gh, org, username, token)
                 if res != "active":
                     print(gh, res)
+                    index += 1
             except Exception:
-                pass
+                print(gh, "bad username")
+                index_bad += 1
+    print("active: {0}".format(len(df.index) - index - index_bad))
+    print("pending: {0}; not success: {1}".format (index, index_bad))
 
 
 def _invite_member(usr, org, username, token):
